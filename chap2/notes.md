@@ -1,11 +1,15 @@
 ##Ready, set, go!
 
 You can change the prompt by typing
+
 	:set prompt <prompt>
+
 For example:
+	
 	:set prompt ghci
 
 Basic calculator usage:
+	
 	ghci > 2 + 15
 	17
 	ghci > 49 * 100
@@ -16,6 +20,7 @@ Basic calculator usage:
 	2.5
 
 You can use parentheses
+	
 	ghci > (50 * 100) - 4999
 	1
 	ghci > 50 * 100 - 4999
@@ -24,10 +29,12 @@ You can use parentheses
 	-244950
 
 When you deal with negative number, you need parentheses
+	
 	ghci > 5 * (-3)
 	-15
 
 Boolean value
+	
 	ghci > True && False
 	False
 	ghci > True || False
@@ -36,6 +43,7 @@ Boolean value
 	False
 
 Testing equality
+
 	ghci > 5 == 5
 	True
 	ghci > 1 == 0
@@ -51,11 +59,13 @@ When type dismatch, interpreter will give you error.
 You can not give command like that:`5 + "llama"` or `5 == True`
 
 Here are some functions:
-	succ 
-	min
-	max
+	
+*	succ 
+*	min
+*	max
 
 To use an infix function, for example:
+
 	5 `div` 2			// you will get the value 1, compare to 5 / 2
 
 ##Baby's first functions
@@ -64,9 +74,11 @@ To use an infix function, for example:
 
 Save it to some file, for example babyfun.hs
 then you can load that function
+
 	:l babyfun
 
 Haskell expressions
+
 	doubleSmallNumber x = if x > 100
 					then x
 					else x * 2
@@ -89,13 +101,14 @@ Doing `let a = 1` inside ghci is the equivalent of writing a = 1 in a script and
 Lists are denoted by square brackets and the value in the lists are seperated by commas.
 
 Put two lists together, this is done by using the ++ operator
+
 	ghci > [1, 2, 3, 4] ++ [9, 10, 11, 12]
 	[1, 2, 3, 4, 9, 10, 11, 12]
-
 	ghci > "hello, " ++ "world"
 	"Hello, world"
 
 Putting something at the beginning of a list using the : operator
+
 	ghci > 'A' : " SMALL CAT"
 	"A SMALL CAT"
 
@@ -104,10 +117,12 @@ Putting something at the beginning of a list using the : operator
 `[]`,`[[]]`, `[[], [], []]` are all different things, the first one is am empty list, the second one is a list that contains one empty list, the third one is a list that contains three empty lists.
 
 `!!` get an element out of a list, the indices start at 0
+
 	ghci > "Steve Buscemi" !! 6 
 	'B'
 	ghci > [9.4, 33.2, 96.2, 11.2, 23.25] !! 1
 	33.2
+
 You can not get element which is out of range
 
 List can be compared if the stuff they contain can be compared. when  using `<`, `<=`, `>`, `>=` to compare lists, they are compared in lexicographical order.
@@ -115,38 +130,46 @@ List can be compared if the stuff they contain can be compared. when  using `<`,
 Here are some basic functions that operate on lists
 
 `head`: return its head
+	
 	ghci > head [5, 4, 3, 2, 1]
 	5
 
 `tail`: return its tail
+
 	ghci > tail [5, 4, 3, 2, 1]
 	[4, 3, 2, 1]
 
 `last`: return its last element
+
 	ghci > last [5, 4, 3, 2, 1]
 	1
 
 `init`: returns everything except last element
+
 	ghci > init [5, 4, 3, 2, 1]
 	[5, 4, 3, 2]
 
 the functions above can not take an empty list
 
 `length`: return its length
+
 	ghci > length [5, 4, 3, 2, 1]
 	5
 
 `null`: check if a list is empty
+
 	ghci > null [1, 2, 3]
 	False
 	ghci > null []
 	True
 
 `reverse`: reverses a list
+
 	ghci > reverse [5, 4, 3, 2, 1]
 	[1, 2, 3, 4, 5]
 
 `take`: takes number and a list, it extracts that many elements from beginning of the list.
+
 	ghci > take 3 [5, 4, 3, 2, 1]
 	[5, 4, 3]
 	ghci > take 1 [3, 9, 3]
@@ -157,6 +180,7 @@ the functions above can not take an empty list
 	[]
 
 `drop`: works in a similar way, only it drops the number of elements from the beginning of a list
+
 	ghci > drop 3 [8, 4, 2, 1, 5, 6]
 	[1, 5, 6]
 	ghci > drop 0 [1, 2, 3, 4]
@@ -165,10 +189,13 @@ the functions above can not take an empty list
 	[]
 
 `maximum`: return the biggest element
+
 `minimum`: return the smallest element
 
 `sum`: return the sum of all element
+
 `product`: return the product of all element
+
 	ghci > sum [5, 2, 1, 6, 3, 2, 5, 7]
 	31
 	ghci > product [6, 2, 1, 2]
@@ -219,6 +246,7 @@ there is a better way:
 Because haskell is lazy, it won't try to evaluate the infinite list immediately.
 
 A handful of functions that produce infinite lists:
+
 `cycle`: 
 	
 	ghci > take 10 (cycle [1, 2, 3])
