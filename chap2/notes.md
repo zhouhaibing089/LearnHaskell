@@ -322,12 +322,40 @@ We can define lengh function use our version
 _ means that we do not care what we'll draw from the list anyway so instead of writing a variable name that we'll never use, we just write _
 This function replaces every element of a list with 1 and then sums that up. This means that the resulting sum will be the length of our list.
 
-Because strings are lists, we can use list comprehensions to precess and produce strings.
+Because strings are lists, we can use list comprehensions to process and produce strings.
 
-	removeNonUppercase st = [c | c <- st, c `ele` ['A'..'Z']]
+	ghci > let removeNonUppercase st = [c | c <- st, c `ele` ['A'..'Z']]
 	ghci > removeNonUppercase "Hahaha ! Ahahaha"
 	"HA"
 	ghci > removeNonUppercase "IdontLIKEFOGS"
 	"ILIKEFOGS"
 
 ##Tuples
+
+They are a way to store several values into a single value.
+
+Tuples can be compared with each other if their components can be compared.
+
+`fst`: takes a pair and returns its first component.
+
+	ghci > fst (8, 11)
+	8
+	ghci > fst ("WOW", False)
+	"WOW"
+
+`snt`: takes a pair and returns its second component
+
+`zip`: take two lists and then zips them together into one list by joining the matching elements into pairs.
+
+	ghci > zip [1, 2, 3, 4, 5] [5, 5, 5, 5, 5]
+	[(1, 5), (2, 5), (3, 5), (4, 5), (5, 5)]
+	ghci > zip [1, 2, 3, 4, 5] ["one", "two", "three", "four", "five"]
+	[(1, "one"),...]
+
+if the two lists do not have the same length, the longer list simply cut off to match the length of the shorter one, since haskell is lazy, we can zip finite lists with infinite lists
+
+Combination of list and tuples
+
+	let triangle = [(a, b, c) | a<-[1..10], b<-[1..a], c<-[1..c], a^2 + b^2 == c^2]
+
+
