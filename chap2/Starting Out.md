@@ -321,6 +321,7 @@ ghci > fst (8, 11)
 8
 ghci > fst ("WOW", False)
 "WOW"
+```
 
 `snt`: 接收一个pair值,并返回第二个值
 
