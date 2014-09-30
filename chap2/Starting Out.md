@@ -282,99 +282,60 @@ ghci > replicate 3 10
 
 ###List comprehension
 
-List comprehension are very similar to set comprehension. We could use:
+下面是一些例子
 
-	ghci > [x*2 | x <- [1..10]]
-	[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+```haskell
+ghci > [x*2 | x <- [1..10]]
+[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+ghci > [x*2 | x <- [1..10], x*2 >= 12]
+[12, 14, 16, 18, 20]
+ghci > [x | x <- [50..100], x `mod` 7 == 3]
+[52, 59, 66, 73, 80, 87, 94]
+ghci > let boomBangs xs = [if x < 10, then "BOOM" else "BANG" | x <- xs, odd x]
+ghci > boomBangs [7..13]
+["BOOM!", "BOOM!", "BANG!", "BANG!"]
+ghci > [x | x <- [10..20], x /= 13, x /= 15, x/=19]
+[10, 11, 12, 14, 16, 17, 18, 20]
+ghci > [x * y | x <- [2, 5, 10], y <- [8, 10, 11]]
+[16, 20, 22, 40, 50, 55, 80, 100, 110]
+ghci > [x * y | x <- [2, 5, 10], y <- [8, 10, 11], x * y > 50]
+[55, 80, 100, 110]
+ghci > let nouns = ["hobo", "frog", "pope"]
+ghci > let adjectives = ["lazy", "grouchy", "scheming"]
+ghci > [adjective ++ " " ++ noun | adjective <- adjectives, noun <- nouns]
+["lazy hobo", "lazy frog", "lazy pope", "grouchy hobo", "grouchy frog", "grouchy pope", "scheming hobo", "scheming frog", "scheming pope"]
+ghci > let length_m xs = sum [1 | _ <- xs]
+ghci > let removeNonUppercase st = [c | c <- st, c `ele` ['A'..'Z']]
+ghci > removeNonUppercase "Hahaha ! Ahahaha"
+"HA"
+ghci > removeNonUppercase "IdontLIKEFOGS"
+"ILIKEFOGS"
+```
 
-You can specify a predicate
+###元组(tuple)
 
-	ghci > [x*2 | x <- [1..10], x*2 >= 12]
-	[12, 14, 16, 18, 20]
+`fst`: 接收一个pair值,并返回第一个值
 
-How about if we wanted all numbers from 50 to 100 whose remainder when divided with the number 7 is 3
+```haskell
+ghci > fst (8, 11)
+8
+ghci > fst ("WOW", False)
+"WOW"
 
-	ghci > [x | x <- [50..100], x `mod` 7 == 3]
-	[52, 59, 66, 73, 80, 87, 94]
+`snt`: 接收一个pair值,并返回第二个值
 
-Weeding out lists by predicates is also called filtering.
+`zip`: 接收两个list,并一一组合产生一个tuple的list
 
-Let's say we want a comprehension that replaces each odd number greater than 10 with "BANG", and each odd number that's less than 10 with "BOOM!"
+```haskell
+ghci > zip [1, 2, 3, 4, 5] [5, 5, 5, 5, 5]
+[(1, 5), (2, 5), (3, 5), (4, 5), (5, 5)]
+ghci > zip [1, 2, 3, 4, 5] ["one", "two", "three", "four", "five"]
+[(1, "one"),...]
+```
+如果两个list长度不相等,长的list后面的元素会被截断以适应短的list长度,因为lazy的特性,我们zip一个无穷list和一个有穷list
 
-if a number is not odd, we throw it out of our list.
+下面是一个结合使用tuple和list的例子
 
-	boomBangs xs = [if x < 10, then "BOOM" else "BANG" | x <- xs, odd x]
-
-The function odd returns True on an odd number and False on an even one.
-The element is included in the list only if all the predicates evaluate to True.
-
-	ghci > boomBangs [7..13]
-	["BOOM!", "BOOM!", "BANG!", "BANG!"]
-
-If we wanted all numbers from 10 to 20 that are not 13, 15 or 19.
-
-	ghci > [x | x <- [10..20], x /= 13, x /= 15, x/=19]
-	[10, 11, 12, 14, 16, 17, 18, 20]
-
-Not can we have multiple predicates in list comprehensions(an element must satisfy all the predicates to be included in the resulting list).
-
-We can also draw from several lists. When drawing from several lists, comprehensions produce all combinations of the given lists and then 
-join them by the output function we supply.
-
-	ghci > [x * y | x <- [2, 5, 10], y <- [8, 10, 11]]
-	[16, 20, 22, 40, 50, 55, 80, 100, 110]
-
-	ghci > [x * y | x <- [2, 5, 10], y <- [8, 10, 11], x * y > 50]
-	[55, 80, 100, 110]
-
-How about a list comprehension that combines a list of adjectives and a list of nouns..
-
-	ghci > let nouns = ["hobo", "frog", "pope"]
-	ghci > let adjectives = ["lazy", "grouchy", "scheming"]
-	ghci > [adjective ++ " " ++ noun | adjective <- adjectives, noun <- nouns]
-	["lazy hobo", "lazy frog", "lazy pope", "grouchy hobo", "grouchy frog", "grouchy pope", "scheming hobo", "scheming frog", "scheming pope"]
-
-We can define lengh function use our version
-
-	length' xs = sum [1 | _ <- xs]
-
-_ means that we do not care what we'll draw from the list anyway so instead of writing a variable name that we'll never use, we just write _
-This function replaces every element of a list with 1 and then sums that up. This means that the resulting sum will be the length of our list.
-
-Because strings are lists, we can use list comprehensions to process and produce strings.
-
-	ghci > let removeNonUppercase st = [c | c <- st, c `ele` ['A'..'Z']]
-	ghci > removeNonUppercase "Hahaha ! Ahahaha"
-	"HA"
-	ghci > removeNonUppercase "IdontLIKEFOGS"
-	"ILIKEFOGS"
-
-##Tuples
-
-They are a way to store several values into a single value.
-
-Tuples can be compared with each other if their components can be compared.
-
-`fst`: takes a pair and returns its first component.
-
-	ghci > fst (8, 11)
-	8
-	ghci > fst ("WOW", False)
-	"WOW"
-
-`snt`: takes a pair and returns its second component
-
-`zip`: take two lists and then zips them together into one list by joining the matching elements into pairs.
-
-	ghci > zip [1, 2, 3, 4, 5] [5, 5, 5, 5, 5]
-	[(1, 5), (2, 5), (3, 5), (4, 5), (5, 5)]
-	ghci > zip [1, 2, 3, 4, 5] ["one", "two", "three", "four", "five"]
-	[(1, "one"),...]
-
-if the two lists do not have the same length, the longer list simply cut off to match the length of the shorter one, since haskell is lazy, we can zip finite lists with infinite lists
-
-Combination of list and tuples
-
-	let triangle = [(a, b, c) | a<-[1..10], b<-[1..a], c<-[1..c], a^2 + b^2 == c^2]
-
-
+```haskell
+let triangle = [(a, b, c) | a<-[1..10], b<-[1..a], c<-[1..c], a^2 + b^2 == c^2]
+```
