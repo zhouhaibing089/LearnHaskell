@@ -105,45 +105,53 @@ List是一个同构(homogenous)的数据结构,它存储相同类型的元素,�
 
 ```haskell
 ghci > let lostNumbers = [4, 8, 15, 16, 23, 48]
-ghci > [1, 2, 3, 4] ++ [9, 10, 11, 12]
+ghci > [1, 2, 3, 4] ++ [9, 10, 11, 12]          -- 两个list拼起来
 [1, 2, 3, 4, 9, 10, 11, 12]
 ghci > "hello, " ++ "world"
 "Hello, world"
-ghci > 'A' : " SMALL CAT"       -- 在头部增加一个元素
+ghci > 'A' : " SMALL CAT"                       -- 在头部增加一个元素
 "A SMALL CAT"
 ghci > "Steve Buscemi" !! 6
-'B'                             -- 取出list中某元素
+'B'                                             -- 取出list中某元素
 ```
 
 `[1, 2, 3]`和`1:2:3:[]`效果是一样的. `[]`定义了一个空list.
 
 取list中元素时要注意不要越界.
 
-List can be compared if the stuff they contain can be compared. when  using `<`, `<=`, `>`, `>=` to compare lists, they are compared in lexicographical order.
+当list中的元素可以比较大小的时候,那么list本身也就可以比较大小(`<`,`<=`,`>`,`>=`)
 
-Here are some basic functions that operate on lists
+一些关于List的基本函数
 
-`head`: return its head
-	
-	ghci > head [5, 4, 3, 2, 1]
-	5
+`head`: 返回第一个元素
 
-`tail`: return its tail
+```haskell
+ghci > head [5, 4, 3, 2, 1]
+5
+```
 
-	ghci > tail [5, 4, 3, 2, 1]
-	[4, 3, 2, 1]
+`tail`: 返回第一个元素后的其他元素
 
-`last`: return its last element
+```haskell
+ghci > tail [5, 4, 3, 2, 1]
+[4, 3, 2, 1]
+```
 
-	ghci > last [5, 4, 3, 2, 1]
-	1
+`last`: 返回最后一个元素
 
-`init`: returns everything except last element
+```haskell
+ghci > last [5, 4, 3, 2, 1]
+1
+```
 
-	ghci > init [5, 4, 3, 2, 1]
-	[5, 4, 3, 2]
+`init`: 返回最后一个元素前的其他元素
 
-the functions above can not take an empty list
+```haskell
+ghci > init [5, 4, 3, 2, 1]
+[5, 4, 3, 2]
+```
+
+上面这些函数不能接收`[]`作为参数
 
 `length`: return its length
 
