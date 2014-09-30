@@ -97,41 +97,27 @@ expression就是一串有值的代码(a piece of code that returns a value)
 
 ###List概述
 
-In haskell, lists are a homogenous data structure. It stores several elements of the same type. That means that we can have a list of integers or a list of characters but we can not have a list that has a few integers and then a few characters.
+List是一个同构(homogenous)的数据结构,它存储相同类型的元素,这就意味着我们可以有一个数值list或者字符list,但不能是一个既含有数值,又含有字符的list.
 
-Use let keyword to define a name right in GHCI.
-Doing `let a = 1` inside ghci is the equivalent of writing a = 1 in a script and then loading it.
+我们可以使用`let`关键字来在GHCI中定义一个名字.
 
-##An intro to lists
+也就是说我们在GHCI中使用`let a = 1`和在script中写`a = 1`并加载到GHCI中效果是一样的.
 
-	let lostNumbers = [4, 8, 15, 16, 23, 48]
+```haskell
+ghci > let lostNumbers = [4, 8, 15, 16, 23, 48]
+ghci > [1, 2, 3, 4] ++ [9, 10, 11, 12]
+[1, 2, 3, 4, 9, 10, 11, 12]
+ghci > "hello, " ++ "world"
+"Hello, world"
+ghci > 'A' : " SMALL CAT"       -- 在头部增加一个元素
+"A SMALL CAT"
+ghci > "Steve Buscemi" !! 6
+'B'                             -- 取出list中某元素
+```
 
-Lists are denoted by square brackets and the value in the lists are seperated by commas.
+`[1, 2, 3]`和`1:2:3:[]`效果是一样的. `[]`定义了一个空list.
 
-Put two lists together, this is done by using the ++ operator
-
-	ghci > [1, 2, 3, 4] ++ [9, 10, 11, 12]
-	[1, 2, 3, 4, 9, 10, 11, 12]
-	ghci > "hello, " ++ "world"
-	"Hello, world"
-
-Putting something at the beginning of a list using the : operator
-
-	ghci > 'A' : " SMALL CAT"
-	"A SMALL CAT"
-
-`[1, 2, 3]` is actually syntactic sugar for `1:2:3:[]`. `[]` is an empty list.
-
-`[]`,`[[]]`, `[[], [], []]` are all different things, the first one is am empty list, the second one is a list that contains one empty list, the third one is a list that contains three empty lists.
-
-`!!` get an element out of a list, the indices start at 0
-
-	ghci > "Steve Buscemi" !! 6 
-	'B'
-	ghci > [9.4, 33.2, 96.2, 11.2, 23.25] !! 1
-	33.2
-
-You can not get element which is out of range
+取list中元素时要注意不要越界.
 
 List can be compared if the stuff they contain can be compared. when  using `<`, `<=`, `>`, `>=` to compare lists, they are compared in lexicographical order.
 
