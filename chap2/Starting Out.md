@@ -84,19 +84,18 @@ True
 
 ```haskell
 doubleMe x = x + x
+doubleUs x y = x * 2 + y * 2
+doubleSmallNumber x = if x > 100 then x else x * 2
+doubleSmallNumberPlusOne x = (if x > 100 then x else x * 2) + 1
 ```
 
-Haskell表达式
+在Haskell中,`else`是必须的
 
-	doubleSmallNumber x = if x > 100
-					then x
-					else x * 2
+expression就是一串有值的代码(a piece of code that returns a value)
 
-Notice: the else part is mandatory in Haskell
+在Haskell中,函数名不能以大写字母开头,当一个函数不接受任何参数时,我们将其称为definition(或者name)
 
-In haskell, every expression and function must return something.
-
-An expression is basically a piece of code that returns a value
+###List概述
 
 In haskell, lists are a homogenous data structure. It stores several elements of the same type. That means that we can have a list of integers or a list of characters but we can not have a list that has a few integers and then a few characters.
 
