@@ -158,112 +158,129 @@ ghci > init [5, 4, 3, 2, 1]
 	ghci > length [5, 4, 3, 2, 1]
 	5
 
-`null`: check if a list is empty
+`null`: 检查List是否为空
 
-	ghci > null [1, 2, 3]
-	False
-	ghci > null []
-	True
+```haskell
+ghci > null [1, 2, 3]
+False
+ghci > null []
+True
+```
 
-`reverse`: reverses a list
+`reverse`: 将list中元素位置反转
 
-	ghci > reverse [5, 4, 3, 2, 1]
-	[1, 2, 3, 4, 5]
+```haskell
+ghci > reverse [5, 4, 3, 2, 1]
+[1, 2, 3, 4, 5]
+```
 
-`take`: takes number and a list, it extracts that many elements from beginning of the list.
+`take`: 从list头部取出指定数目个元素
 
-	ghci > take 3 [5, 4, 3, 2, 1]
-	[5, 4, 3]
-	ghci > take 1 [3, 9, 3]
-	[3]
-	ghci > take 5 [1, 2]	// if the number is more than length, return the list itself
-	[1, 2]
-	ghci > take 0 [6, 6, 6]
-	[]
+```haskell
+ghci > take 3 [5, 4, 3, 2, 1]
+[5, 4, 3]
+ghci > take 1 [3, 9, 3]
+[3]
+ghci > take 5 [1, 2]	// if the number is more than length, return the list itself
+[1, 2]
+ghci > take 0 [6, 6, 6]
+[]
+```
 
-`drop`: works in a similar way, only it drops the number of elements from the beginning of a list
+`drop`: 从list尾部取出指定数目个元素
 
-	ghci > drop 3 [8, 4, 2, 1, 5, 6]
-	[1, 5, 6]
-	ghci > drop 0 [1, 2, 3, 4]
-	[1, 2, 3, 4]
-	ghci > drop 100 [1, 2, 3, 4]
-	[]
+```haskell
+ghci > drop 3 [8, 4, 2, 1, 5, 6]
+[1, 5, 6]
+ghci > drop 0 [1, 2, 3, 4]
+[1, 2, 3, 4]
+ghci > drop 100 [1, 2, 3, 4]
+[]
+```
 
-`maximum`: return the biggest element
+`maximum`: 返回list中最大的那个元素
 
-`minimum`: return the smallest element
+`minimum`: 返回list中最小的那个元素
 
-`sum`: return the sum of all element
+`sum`: 返回list中所有元素的和
 
-`product`: return the product of all element
+`product`: 返回list中所有元素的积
 
-	ghci > sum [5, 2, 1, 6, 3, 2, 5, 7]
-	31
-	ghci > product [6, 2, 1, 2]
-	24
+```haskell
+ghci > sum [5, 2, 1, 6, 3, 2, 5, 7]
+31
+ghci > product [6, 2, 1, 2]
+24
+```
 
-`ele`: takes a thing and a list of things and tells us if that thing is an element of that list. usually use an infix way
+`ele`: 检查list中是否含有指定元素,通常以中缀形式出现
 
-##Texas ranges
+###Texas ranges
 
-	ghci > [1..20]
-	[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+```haskell
+ghci > [1..20]
+[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+ghci > ['a'..'z']
+"abcdefghijklmnopqrstuvwxyz"
+ghci > ['K'..'Z']
+"KLMNOPQRSTUVWXYZ"
+```
 
-	ghci > ['a'..'z']
-	"abcdefghijklmnopqrstuvwxyz"
+你也可以指定步长
 
-	ghci > ['K'..'Z']
-	"KLMNOPQRSTUVWXYZ"
+```haskell
+ghci > [2, 4..20]
+[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+ghci > [3, 6..20]
+[3, 6, 9, 12, 15, 18]
+```
 
-You can also specify a step
+步长也可以为负数
 
-	ghci > [2, 4..20]
-	[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-	ghci > [3, 6..20]
-	[3, 6, 9, 12, 15, 18]
+```haskell
+ghci > [20, 19..1]
+[20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+```
 
-Step can also be -1
+在浮点数的情况下要格外小心
 
-	ghci > [20, 19..1]
-	[20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+```haskell
+ghci > [0.1, 0.3..1]
+[0.1, 0.3, 0.5, 0.7, 0.899999999999, 1.0999999999]
+```
 
-Watch out when using floating point numbers in ranges
+所以尽量不要这样使用
 
-	ghci > [0.1, 0.3..1]
-	[0.1, 0.3, 0.5, 0.7, 0.899999999999, 1.0999999999]
+你也可以不指定上界来创建一个无穷list
 
-Not use them in list ranges
+```haskell
+ghci > [13, 26..13*24]
+take 24 [13, 26..]
+```
 
-You can also use ranges to make infinite lists by just not specifying an upper list.
+由于lazy的特性,Haskell并不会马上对无穷list求值
 
-Let's examine how you could get the first 24 multiples of 13.
-
-	ghci > [13, 26..13*24]
-
-there is a better way:
-	
-	take 24 [13, 26..]
-
-Because haskell is lazy, it won't try to evaluate the infinite list immediately.
-
-A handful of functions that produce infinite lists:
+下面是一些常用的函数用来创建无穷(infinite)的list
 
 `cycle`: 
-	
-	ghci > take 10 (cycle [1, 2, 3])
-	[1, 2, 3, 1, 2, 3, 1, 2, 3, 1]
-	ghci > take 12 (cycle "LOL ")
-	"LOL LOL LOL "
 
-`repeat`: take an element and produces an infinite list of just that element
+```haskell
+ghci > take 10 (cycle [1, 2, 3])
+[1, 2, 3, 1, 2, 3, 1, 2, 3, 1]
+ghci > take 12 (cycle "LOL ")
+"LOL LOL LOL "
+```
 
-	ghci > take 10 (repeat 5)
-	[5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+`repeat`:
 
-`replicate 3 10` will return `[10, 10, 10]`
+```haskell
+ghci > take 10 (repeat 5)
+[5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+ghci > replicate 3 10 
+[10, 10, 10]
+```
 
-##List comprehension
+###List comprehension
 
 List comprehension are very similar to set comprehension. We could use:
 
