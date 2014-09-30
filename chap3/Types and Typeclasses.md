@@ -1,25 +1,30 @@
+Types and Typeclasses
+=====================
+
 ###Believe the type
 
-Use `:t expression` to see the type of given expression
+使用`:t expression`来查看`expression`的类型
 
-The output is `expression :: Type`
+上面语句的输出大概是这个样子: `expression :: Type`
 
-the `::` can be read as "has type of"
+`::`可以被读作"has type of"
 
 **Function**也有类型
 
-    addThree :: Int -> Int -> Int -> Int
-    addThree x y z = x + y + z
+```haskell
+addThree :: Int -> Int -> Int -> Int
+addThree x y z = x + y + z
+```
 
 **常见类型**
 
-*   Int: 有界的
-*   Integer: 无界的，可以表示任意大的数，但是Int效率更高些
-*   Float: 单精度浮点数
-*   Double: 双精度浮点数
-*   Bool: True和False两个值
-*   Char: 单引号括起来
-*   The empty tuple is also a type which can only have a single value: ()
+*   `Int`: 有界的
+*   `Integer`: 无界的，可以表示任意大的数，但是Int效率更高些
+*   `Float`: 单精度浮点数
+*   `Double`: 双精度浮点数
+*   `Bool`: True和False两个值
+*   `Char`: 单引号括起来
+*   一个空的元组也是一种类型且只有一个值`()`
 
 ###类型变量
 
@@ -41,7 +46,9 @@ the `::` can be read as "has type of"
 
 当Read出现歧义的时候，可以使用下面这个解决方案
 
-    ghci> read "5" :: Int
+```haskell
+ghci> read "5" :: Int
+```
 
 就像我们之前所说的`::`应该被念成`has type of`
 
@@ -51,8 +58,10 @@ the `::` can be read as "has type of"
 
 我们可以检查一下乘法的类型
 
-    ghci> :t (*)
-    (*) :: (Num a) => a -> a -> a
+```haskell
+ghci> :t (*)
+(*) :: (Num a) => a -> a -> a
+```
 
 因为乘法需要接受两个相同类型的参数，因此`(5 :: Int) * (6 :: Integer)`会产生类型错误
 
@@ -62,9 +71,9 @@ the `::` can be read as "has type of"
 
 `fromIntegral`是用来将Integral转成Num的这样的话下面这行代码才不会报类型错误异常
 
-    ghci> fromIntegral (length [1, 2, 3, 4]) + 3.2
-    ghci> 7.2
-    ghci> :t fromIntegral
-    fromIntegral :: (Num b, Integral a) => a -> b
-
-
+```haskell
+ghci> fromIntegral (length [1, 2, 3, 4]) + 3.2
+ghci> 7.2
+ghci> :t fromIntegral
+fromIntegral :: (Num b, Integral a) => a -> b
+```
