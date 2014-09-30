@@ -6,66 +6,73 @@ Starting OUt
 修改提示符
 
 ```haskell
-	:set prompt <prompt>
+:set prompt <prompt>
 ```
 
 基本的计算器操作
 
 ```haskell	
-	ghci > 2 + 15
-	17
-	ghci > 49 * 100
-	4900
-	ghci > 1892 - 1472
-	420
-	ghci > 5 / 2
-	2.5
+ghci > 2 + 15
+17
+ghci > 49 * 100
+4900
+ghci > 1892 - 1472
+420
+ghci > 5 / 2
+2.5
 ```
 
 你可以用括号来指定计算顺序
+
+```haskell
+ghci > (50 * 100) - 4999
+1
+ghci > 50 * 100 - 4999
+1
+ghci > 50 * (100 - 4999)
+-244950
+``
+
+处理负数时你需要加上括号
 	
-	ghci > (50 * 100) - 4999
-	1
-	ghci > 50 * 100 - 4999
-	1
-	ghci > 50 * (100 - 4999)
-	-244950
+```haskell
+ghci > 5 * (-3)
+-15
+```
 
-When you deal with negative number, you need parentheses
+布尔值操作	
+
+```haskell
+ghci > True && False
+False
+ghci > True || False
+True
+ghci > not True
+False
+```
+
+测试相等性
+
+```haskell
+ghci > 5 == 5
+True
+ghci > 1 == 0
+False
+ghci > 5 /= 5			// /= means not equal
+False
+ghci > 5 /= 4
+True
+ghci > "Hello" == "Hello"
+True
+```
+
+当类型不匹配时,解释器会给你提示错误,你不能执行像`5 + "llama"`和`5 == True`这样的运算.
+
+一些函数
 	
-	ghci > 5 * (-3)
-	-15
-
-Boolean value
-	
-	ghci > True && False
-	False
-	ghci > True || False
-	True
-	ghci > not True
-	False
-
-Testing equality
-
-	ghci > 5 == 5
-	True
-	ghci > 1 == 0
-	False
-	ghci > 5 /= 5			// /= means not equal
-	False
-	ghci > 5 /= 4
-	True
-	ghci > "Hello" == "Hello"
-	True
-
-When type dismatch, interpreter will give you error.
-You can not give command like that:`5 + "llama"` or `5 == True`
-
-Here are some functions:
-	
-*	succ 
-*	min
-*	max
+*	`succ`
+*	`min`
+*	`max`
 
 To use an infix function, for example:
 
