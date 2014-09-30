@@ -1,15 +1,17 @@
+Starting OUt
+============
+
 ##Ready, set, go!
 
-You can change the prompt by typing
+修改提示符
 
+```haskell
 	:set prompt <prompt>
+```
 
-For example:
-	
-	:set prompt ghci
+基本的计算器操作
 
-Basic calculator usage:
-	
+```haskell	
 	ghci > 2 + 15
 	17
 	ghci > 49 * 100
@@ -18,8 +20,9 @@ Basic calculator usage:
 	420
 	ghci > 5 / 2
 	2.5
+```
 
-You can use parentheses
+你可以用括号来指定计算顺序
 	
 	ghci > (50 * 100) - 4999
 	1
