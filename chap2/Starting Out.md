@@ -58,7 +58,7 @@ ghci > 5 == 5
 True
 ghci > 1 == 0
 False
-ghci > 5 /= 5			// /= means not equal
+ghci > 5 /= 5			-- /= means not equal
 False
 ghci > 5 /= 4
 True
@@ -74,20 +74,19 @@ True
 *	`min`
 *	`max`
 
-To use an infix function, for example:
+可以使用中缀操作符
 
-	5 `div` 2			// you will get the value 1, compare to 5 / 2
+```haskell
+5 `div` 2			-- = 2
+```
 
-##Baby's first functions
+###第一个函数
 
-	doubleMe x = x + x
+```haskell
+doubleMe x = x + x
+```
 
-Save it to some file, for example babyfun.hs
-then you can load that function
-
-	:l babyfun
-
-Haskell expressions
+Haskell表达式
 
 	doubleSmallNumber x = if x > 100
 					then x
