@@ -141,4 +141,6 @@ calcBmis xs = [bmi w h | (w, h) <- xs]
 
 where是可以嵌套的.
 
+###Let it be
+
 
