@@ -52,3 +52,28 @@ ghci > let xs = [(1, 3), (4, 3), (2, 4), (5, 3), (5, 6), (3, 1)]
 ghci > [a + b | (a, b) <- xs]
 [4, 7, 6, 8, 11, 4]
 ```
+
+`(a,_)`匹配长度大于1的任何list
+
+```haskell
+capital :: String -> String
+capital "" = "Empty string, whoops"
+capital all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
+```
+
+所以也就意味着`@`符号前可以保留原始值的引用
+
+###Guards, guards
+
+Pattern是一种确认值符合某种形式,并将其分解,而Guards是一种检测某个值是否拥有某属性的方式.
+
+```haskell
+bmiTell :: (RealFloat a) => a -> String
+bmiTell bmi
+    | bmi <= 18.5 = "You are underweight, you emo, you!"
+    | bmi <= 25.0 = "You are supposedly normal, Pffft, I bet you are ugly!"
+    | bmi <= 30.0 = "You are fat! Lose some weight, fatty!"
+    | otherwise = "You are a whale, congratulations!"
+```
+
+
