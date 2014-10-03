@@ -76,4 +76,21 @@ bmiTell bmi
     | otherwise = "You are a whale, congratulations!"
 ```
 
+Guards基本来说就是一个布尔值,如果这个布尔值为`True`,那么对应的函数体便会执行,如果这个布尔值为`False`,那么会进行一个检查.
+
+通常最后一个guard是`otherwise`,它总是返回`True`.
+
+当所有的guards都检查过,并且都为False,那么会执行到下一个pattern,这便是guards和pattern之间的关系
+
+```haskell
+bmiTell :: (RealFloat a) => a -> a ->String
+bmiTell weight height
+    | weight / height ^ 2 <= 18.5 = "You are underweight, you emo, you!"
+    | weight / height ^ 2 <= 25.0 = "You are supposedly normal. Pffft, I bet you are ugly!"
+    | weight / height ^ 2 <= 30.0 = "You are fat, Lose some weight, fatty"
+    | otherwise = "You are a whale, congratulations!"
+```
+
+###Where
+
 
