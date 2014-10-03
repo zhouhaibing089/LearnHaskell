@@ -93,4 +93,52 @@ bmiTell weight height
 
 ###Where
 
+我们上面这段代码重复计算了三遍`weight / height ^ 2`,这不是我们希望看到的.
+
+```haskell
+bmiTell :: (RealFloat a) => a -> a ->String
+bmiTell weight height
+    | bmi <= 18.5 = "You are underweight, you emo, you!"
+    | bmi <= 25.0 = "You are supposedly normal. Pffft, I bet you are ugly!"
+    | bmi <= 30.0 = "You are fat, Lose some weight, fatty"
+    | otherwise = "You are a whale, congratulations!"
+    where bmi = weight / height ^ 2
+```
+
+即通过在where中将计算出来的值赋值给`bmi`变量来做到只需计算一次.
+
+通常的做法是我们在guards后写上where,且在where中定义的名称在guards中都是可见的.
+
+当在where处声明了多个名称(name)时,最好对齐
+
+where并不在pattern中共享变量
+
+在where中也可以使用pattern match
+
+```haskell
+where   bmi = weight / height ^ 2
+        (skinny, normal, fat) = (18.5, 25.0, 30.0)
+```
+
+另外一个函数
+
+```haskell
+initials :: String -> String -> String
+initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
+    where   (f:_) = firstname
+            (l:_) = lastname
+```
+
+就像我们可以在where中定义常量一样,我们也可以在其中定义函数
+
+```haskell
+calcBmis :: (RealFloat a) => [(a, a)] -> [a]
+calcBmis xs = [bmi w h | (w, h) <- xs]
+    where bmi weight height = weight / height ^ 2
+```
+
+这里我们引入`bmi`作为一个函数
+
+where是可以嵌套的.
+
 
