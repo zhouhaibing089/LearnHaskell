@@ -192,4 +192,59 @@ ghci > map ($ 3) [(4+), (*10), (^2), sqrt]
 
 ### Function Composition
 
+在haskell中,我们使用`.`函数来组合函数,它的定义如下:
 
+```haskell
+(.) :: (b -> c) -> (a -> b) -> a -> c
+f . g = \x -> f (g x)
+```
+
+通过上面这个定义我们可以知道`negate . (*3)`返回一个函数,它接收一个参数,将其乘以3,再对其取反.
+
+```haskell
+ghci > map (\x -> negate (abs x)) [5, -3, -6, -7, -3, 2, -19, 24]
+[-5, -3, -6, -7, -3, -2, -19, -24]
+-- is the same as map (negate . abs) [5, -3, -6, -7, -3, 2, -19, 24]
+```
+
+函数的组合是右结合的.所以我们可以一次组合多个函数,`f (g (z x))`和`(f . g. z) x`是等价的.
+
+```haskell
+ghci > map (\xs -> negate (sum (tail xs))) [[1..5], [3..6], [1..7]]
+[-14, -15, -27]
+-- is the same as map (negate . sum .tail) [[1..5], [3..6], [1..7]]
+```
+
+如果函数接收多个参数怎么办呢,这个时候想到curry特性,在haskell中,任何一个函数本质上都只接收一个参数(不知这样讲对不对).
+
+**Point free style**
+
+```haskell
+suma :: (Num a) => [a] -> a
+suma xs = foldl (+) 0 xs
+-- in point free style, it is the same as suma = foldl (+) 0
+```
+
+但是像下面这种情况就比较复杂了:
+
+```haskell
+fn x = ceiling (negate (tan (cos (max 50 x))))
+-- it is the same as fn = ceiling . negate . tan . cos . max 50
+```
+
+写太长的函数链通常不推荐.
+
+```haskell
+-- normal
+oddSquareSum :: Integer
+oddSquareSum = sum (takeWhile (< 10000) (filter odd (map (^2) [1..])))
+-- function composition
+oddSquareSum :: Integer
+oddSquareSum = sum . takeWhile (<10000) .filter odd . map (^2) $ [1..]
+-- more readable
+oddSquareSum :: Integer
+oddSquareSum = 
+    let oddSquares = filter odd $ map (^2) [1..]
+        belowLimit = takeWhile (<10000) oddSquares
+    in sum belowLimit
+```
