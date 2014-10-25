@@ -138,5 +138,36 @@ lasta = foldl1 (\ _ x -> x )
 另外一种描述`foldl`和`foldr`的方式是:
 
 > 假如我们`foldr f z [3, 4, 5, 6]`,那么其实我们做的事情是`f 3 (f 4 (f 5 (f 6 z)))`
+> 
+> 假如我们`foldl g z [3, 4, 5, 6]`,那么其实我们做的事情是`g (g (g (z 3) 4) 5) 6`
 
+`scanl`和`scanr`与`foldl`和`foldr`很类似.
 
+```haskell
+ghci > scanl (+) 0 [3, 5, 2, 1]
+[0, 3, 8, 10, 11]
+ghci > scanr (+) 0 [3, 5, 2, 1]
+[11, 10, 8, 3, 0]
+ghci > scanl1 (\acc x -> if x > acc then x else acc) [3, 4, 5, 3, 7, 9, 2, 1]
+[3, 4, 5, 5, 7, 9, 9, 9]
+ghci > scanl (flip (:)) [] [3, 2, 1]
+[[], [3], [2, 3], [1, 2, 3]]
+```
+
+当你使用`scanl`时,最终的结果是最后一个元素,当你使用`scanr`时,最终的结果是第一个元素.
+
+`scanl`和`scanr`函数通常用来显示用`fold`函数执行的过程,来看下面这个例子:
+
+```haskell
+sqrtSums :: Int
+sqrtSums = length (takeWhile (< 1000) (scanl1 (+) (map sqrt [1..])))
+```
+
+### Function application with $
+
+`$`是一个函数,也被称为`function application`
+
+```haskell
+($) :: (a -> b) -> a -> b
+f $ x = f x
+```
