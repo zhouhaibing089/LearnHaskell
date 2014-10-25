@@ -171,3 +171,25 @@ sqrtSums = length (takeWhile (< 1000) (scanl1 (+) (map sqrt [1..])))
 ($) :: (a -> b) -> a -> b
 f $ x = f x
 ```
+
+因为`$`的优先级最低,也是右结合(right associative),所以我们看看它带来了哪些方便
+
+```haskell
+sum (map sqrt [1..130])
+-- is the same as sum $ map sqrt [1..130]
+sqrt (3 + 4 + 9)
+-- is the same as sqrt $ 3 + 4 + 9
+sum (filter (>10) (map (*2) [2..10]))
+-- is the same as sum $ filter (> 10) $ map (*2) [2..10]
+```
+
+因为$是right associative的,所以`f (g (z x))`和`g $ g $ z x`是等价的.
+
+```haskell
+ghci > map ($ 3) [(4+), (*10), (^2), sqrt]
+[7.0, 30.0, 9.0, 1.7320508075688772]
+```
+
+### Function Composition
+
+
