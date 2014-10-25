@@ -17,3 +17,4 @@ tell (x:y:[]) = "The list has two elements: " ++ show x ++ " and " ++ show y
 tell (x:y:_) = "This list is long, the first two elements are: " ++ show x ++ " and " ++ show y
 
 
+number x y z = y
