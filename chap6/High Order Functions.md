@@ -63,4 +63,29 @@ largestDivisible = head (filter p [100000, 99999..])
 
 ### Lambda
 
-Lambda基本上来说就是一个匿名函数
+Lambda基本上来说就是一个匿名函数,它的形式是:
+
+```haskell
+\arg1 arg2 - > funcbody
+```
+
+来看下面一些代码.
+
+```haskell
+ghci > zipWith (\a b -> (a * 30 + 3) / b) [5, 4, 3, 2, 1] [1, 2, 3, 4, 5]
+[150.0, 61.5, 31.0, 15.75, 6.6]
+ghci > map (\(a, b) -> a + b) [(1, 2), (3, 5), (6, 3), (2, 6), (2, 5)]
+[3, 8, 9, 8, 7]
+```
+
+下面是在定义函数时使用lambda的例子.
+
+```haskell
+addThree :: (Num a) => a -> a -> a -> a
+addThree x y z = x + y + z  -- which is the same as addThree = \x -> \y -> \z -> x + y +_ z
+
+flipa :: (a -> b -> c) -> b -> a -> c
+flipa f = \x y -> f y x     -- which is the same as flipa f x y = f y x
+```
+
+
